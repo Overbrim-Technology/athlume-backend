@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount', # Optional: for Google/Facebook login
     'dj_rest_auth.registration',
+    'emoji_picker',
     'api',
     'organizations',
     'athletes',
@@ -107,6 +108,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'OPTIONS': {
+        #     'charset': 'utf8mb4',
+        #     'use_unicode': True,
+        # },
     }
 }
 

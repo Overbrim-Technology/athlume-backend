@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from organizations.models import Organization, School
-from athletes.models import Athlete
+from athletes.models import Athlete, Profile, Achievement, Stat, Video
 
 
 class OrganizationSerializer(serializers.ModelSerializer):
@@ -17,7 +17,53 @@ class SchoolSerializer(serializers.ModelSerializer):
 class AthleteSerializer(serializers.ModelSerializer):
     # Optional: Display the organization name instead of just ID
     organization_name = serializers.CharField(source='organization.name', read_only=True)
+    user_name = serializers.CharField(source='user.username', read_only=True)
 
     class Meta:
         model = Athlete
-        fields = ['id', 'first_name', 'last_name', 'sport', 'organization', 'organization_name']
+        fields = ['id', 'user_name', 'sport', 'organization', 'organization_name']
+        
+class AchievementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Achievement
+        fields = ['id', 'emoji', 'achievement']
+
+class StatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stat
+        fields = ['id', 'date', 'event', 'performance', 'highlight']
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = ['id', 'url']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    achievements = AchievementSerializer(many=True, read_only=True)
+    stats = StatSerializer(many=True, read_only=True)
+    videos = VideoSerializer(many=True, read_only=True)
+
+    organization_name = serializers.CharField(source='organization.name', read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ['id',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'bio',
+                  'sport',
+                  'school',
+                  'graduation_year',
+                  'organization_name',
+                  'achievements',
+                  'stats',
+                  'videos',
+                  'profile_picture',
+                  'banner',
+                  'youtube',
+                  'facebook',
+                  'x',
+                  'instagram',]
+
+

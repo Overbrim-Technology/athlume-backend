@@ -5,12 +5,13 @@ from rest_framework.routers import DefaultRouter
 
 # Import your views from the v1/views folder
 from .views import AppHomeView
-from .views import AthleteViewSet, OrganizationViewSet, SchoolViewSet
+from .views import AthleteViewSet, ProfileViewSet, OrganizationViewSet, SchoolViewSet
 
 # --- Router Setup for ViewSets ---
 # Routers automatically create URLs like /athletes/, /athletes/5/, etc.
 router = DefaultRouter()
 router.register(r'athletes', AthleteViewSet, basename='athlete')
+router.register(r'profiles', ProfileViewSet, basename='profile')
 router.register(r'organizations', OrganizationViewSet, basename='organization')
 router.register(r'schools', SchoolViewSet, basename='school')
 

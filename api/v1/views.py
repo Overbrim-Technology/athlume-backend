@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from organizations.models import Organization, School
-from athletes.models import Athlete
-from .serializers import OrganizationSerializer, SchoolSerializer, AthleteSerializer
+from athletes.models import Athlete, Profile
+from .serializers import OrganizationSerializer, SchoolSerializer, AthleteSerializer, ProfileSerializer
 
 # Create your views here.
 # --- Standard CRUD ViewSets ---
@@ -19,6 +19,10 @@ class SchoolViewSet(viewsets.ModelViewSet):
 class AthleteViewSet(viewsets.ModelViewSet):
     queryset = Athlete.objects.all()
     serializer_class = AthleteSerializer
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 # --- The App Home API ---
 class AppHomeView(APIView):
