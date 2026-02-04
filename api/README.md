@@ -8,7 +8,7 @@ This API serves as the backbone for managing athlete portfolios, organizational 
 
 ## 🚀 Base Configuration
 
-* **Live URL:** `https://yourusername.pythonanywhere.com`
+* **Live URL:** `https://timig.pythonanywhere.com`
 * **API Root:** `/api/`
 * **Auth Root:** `/api/auth/`
 
@@ -30,32 +30,32 @@ Handled by `dj-rest-auth`. All POST requests must include `Content-Type: applica
 
 ---
 
-## 🏟 Core Resources (`/api/`)
+## 🏟 Core Resources (`/api/v1/`)
 
-### 1. App Home (`/api/home/`)
+### 1. App Home (`/api/v1/home/`)
 
 * **Method:** `GET`
 * **Description:** A custom dashboard view. Usually returns high-level stats (e.g., total athletes, featured achievements, or user-specific greeting).
 
-### 2. Athletes (`/api/athletes/`)
+### 2. Athletes (`/api/v1/athletes/`)
 
 * **Methods:** `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
 * **Description:** The central registry of all athletes.
 * **Data:** Contains `sport`, `school`, `age`, and links to the `Organization`.
 
-### 3. Profiles (`/api/profiles/`)
+### 3. Profiles (`/api/v1/profiles/`)
 
 * **Methods:** `GET`, `PATCH`
 * **Description:** The "Enhanced Athlete" view.
 * **Key Feature:** This is where the **Achievements (Emojis)** and **Bio** are managed.
 * **Example Usage:** Use `GET /api/profiles/{id}/` to fetch an athlete's medal cabinet.
 
-### 4. Organizations (`/api/organizations/`)
+### 4. Organizations (`/api/v1/organizations/`)
 
 * **Methods:** `GET` (Public), `POST/PUT` (Admin only)
 * **Description:** Managed list of sports clubs and athletic organizations.
 
-### 5. Schools (`/api/schools/`)
+### 5. Schools (`/api/v1/schools/`)
 
 * **Methods:** `GET`
 * **Description:** List of schools associated with the athletes. Useful for populating dropdowns in the frontend registration/edit forms.
@@ -67,7 +67,7 @@ Handled by `dj-rest-auth`. All POST requests must include `Content-Type: applica
 ### Fetching a Specific Athlete Profile
 
 **Request:**
-`GET /api/profiles/5/`
+`GET /api/v1/profiles/5/`
 
 **Response:**
 
@@ -80,8 +80,8 @@ Handled by `dj-rest-auth`. All POST requests must include `Content-Type: applica
     "school_name": "Lincoln High",
     "organization_name": "City Aquatics",
     "achievements": [
-        {"title": "State Champ", "emoji": "🥇"},
-        {"title": "Record Breaker", "emoji": "🚀"}
+        {"achievement": "State Champ", "emoji": "🥇"},
+        {"achievement": "Record Breaker", "emoji": "🚀"}
     ]
 }
 
@@ -90,7 +90,7 @@ Handled by `dj-rest-auth`. All POST requests must include `Content-Type: applica
 ### Filtering Athletes by Sport
 
 **Request:**
-`GET /api/athletes/?sport=Basketball`
+`GET /api/v1/athletes/?sport=Basketball`
 
 ---
 
