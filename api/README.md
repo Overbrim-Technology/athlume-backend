@@ -274,6 +274,7 @@ results = response.json()["search_results"]
     }
   ]
 }
+
 ```
 
 **PATCH Body Example:**
@@ -300,6 +301,9 @@ results = response.json()["search_results"]
   "owner": 3
 }
 ```
+
+#### Organization Profile / Dashboard
+Redirects to {BASE_URL}/admin/
 
 ---
 
