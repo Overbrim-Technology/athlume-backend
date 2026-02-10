@@ -33,7 +33,7 @@ class VideoInline(admin.TabularInline):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     # Use a custom change form template that removes breadcrumbs and object-tools
-    change_form_template = 'admin/athletes/profile_change_form.html'
+    change_form_template = 'admin/no_breadcrumb_change_form.html'
     change_list_template = 'admin/no_breadcrumb_change_list.html'
     inlines = [AchievementInline, StatInline, VideoInline]
     list_display = ('first_name', 'last_name', 'organization', 'sport')
@@ -99,7 +99,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
         # Athletes can view their own profile
         if request.user.groups.filter(name='Athlete').exists():
-            return obj.user == request.user
+            return False # Don't allow athletes to view via admin; they should use the API or a custom frontend.
+            # return obj.user == request.user
 
         # Organization owners can view profiles in their organization
         if request.user.groups.filter(name='Organization Owner').exists():
@@ -118,6 +119,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
         # Athletes can change only their own profile
         if request.user.groups.filter(name='Athlete').exists():
+            # return False  # Don't allow athletes to change via admin; they should use the API or a custom frontend.
             return obj.user == request.user
 
         # Organization owners can change profiles belonging to their org
@@ -226,9 +228,12 @@ class ProfileAdmin(admin.ModelAdmin):
         except Exception:
             # If anything goes wrong, don't block admin save
             pass
-# @admin.register(Athlete)
+
 @admin.register(Athlete)
 class AthleteAdmin(admin.ModelAdmin):
+    # Use a custom change form template that removes breadcrumbs and object-tools
+    change_form_template = 'admin/no_breadcrumb_change_form.html'
+    change_list_template = 'admin/no_breadcrumb_change_list.html'
     list_display = ('first_name', 'last_name', 'organization', 'sport')
     search_fields = ('first_name', 'last_name', 'email')
     list_filter = ('sport', 'organization')

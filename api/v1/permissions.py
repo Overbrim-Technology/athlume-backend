@@ -72,7 +72,7 @@ class IsOrganizationOwnerOrAdmin(permissions.BasePermission):
         
         # Athlete can only edit themselves
         if hasattr(obj, 'user') and obj.user == request.user:
-            return True
+            return False
         
         # Organization owner can edit athletes in their organization
         if hasattr(obj, 'organization') and obj.organization:

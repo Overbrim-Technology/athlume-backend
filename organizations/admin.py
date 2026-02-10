@@ -56,6 +56,7 @@ class OrganizationAdmin(admin.ModelAdmin):
         have the proper object-level permission.
         """
         return request.user.is_superuser
+        # return True
 
     def has_view_permission(self, request, obj=None):
         # Superusers can view everything

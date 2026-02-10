@@ -6,12 +6,12 @@ class Organization(models.Model):
     # Link to the admin account for this specific org/school
     owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
-    address = models.TextField()
+    address = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
     logo = models.ImageField(upload_to='org_logos/', blank=True, null=True)
-    state = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

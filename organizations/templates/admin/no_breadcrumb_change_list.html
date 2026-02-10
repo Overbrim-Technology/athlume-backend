@@ -1,4 +1,20 @@
 {% extends "admin/change_list.html" %}
 
+{% load i18n %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+
+    {# 1. Check if the logged-in user has an organization attached #}
+    {% if user.organization %}
+        <li>
+            {# 2. Access the ID directly from the user object #}
+            <a href="{% url 'admin:organizations_organization_change' user.organization.id %}" class="viewsitelink">
+                ⚙️ Update {{ user.organization.name }}
+            </a>
+        </li>
+    {% endif %}
+{% endblock %}
 {% block breadcrumbs %}
+
 {% endblock %}

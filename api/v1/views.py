@@ -15,7 +15,7 @@ from .permissions import IsAthleteOwnerOrReadOnly, IsOrganizationOwnerOrAdmin, I
 class OrganizationViewSet(viewsets.ModelViewSet):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOrganizationOwnerOrAdmin]
 
     def get_queryset(self):
         """
@@ -62,10 +62,6 @@ class AthleteViewSet(viewsets.ModelViewSet):
             return Athlete.objects.all()
         
         # For authenticated users, apply filtering based on role
-        # Admin sees all athletes
-        if user.is_staff:
-            return Athlete.objects.all()
-        
         # Check if user is an athlete
         try:
             athlete = Athlete.objects.get(user=user)
@@ -81,6 +77,10 @@ class AthleteViewSet(viewsets.ModelViewSet):
             return Athlete.objects.filter(organization=org)
         except Organization.DoesNotExist:
             pass
+
+        # Admin sees all athletes
+        if user.is_staff:
+            return Athlete.objects.all()
         
         # Authenticated user with no role - return empty queryset
         return Athlete.objects.none()
@@ -105,6 +105,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
         if not user.is_authenticated:
             return Profile.objects.all()
         
+        # Check if user is an organization owner
+        try:
+            org = Organization.objects.get(owner=user)
+            # Return profiles of athletes in this organization
+            return Profile.objects.filter(organization=org)
+        except Organization.DoesNotExist:
+            pass
+
         # Admin sees all profiles
         if user.is_staff:
             return Profile.objects.all()
@@ -115,14 +123,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
             # Return only this profile
             return Profile.objects.filter(id=profile.id)
         except Profile.DoesNotExist:
-            pass
-        
-        # Check if user is an organization owner
-        try:
-            org = Organization.objects.get(owner=user)
-            # Return profiles of athletes in this organization
-            return Profile.objects.filter(organization=org)
-        except Organization.DoesNotExist:
             pass
         
         # Authenticated user with no role - return empty queryset
