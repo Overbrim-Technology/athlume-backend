@@ -113,6 +113,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         elif role == 'organization':
             org_owner_group = Group.objects.get(name='Organization Owner')
             user.groups.add(org_owner_group)
+            user.is_staff = True # Grant admin site access for organization owners to manage their org/athletes
             user.save()
         
         return user
