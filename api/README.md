@@ -34,7 +34,6 @@ When a user registers, they **must specify a `role`** - either `athlete` or `org
   "key": "a1b2c3d4e5f6g7h8i9j0",
   "user": {
     "id": 7,
-    "username": "alex_smith",
     "email": "alex@example.com"
   }
 }
@@ -43,7 +42,6 @@ When a user registers, they **must specify a `role`** - either `athlete` or `org
 **Register as Athlete (Minimal):**
 ```json
 {
-  "username": "swimmer_alex",
   "email": "alex@example.com",
   "password": "SecurePass123!",
   "re_password": "SecurePass123!",
@@ -54,7 +52,6 @@ When a user registers, they **must specify a `role`** - either `athlete` or `org
 **Register as Athlete (with optional details):**
 ```json
 {
-  "username": "swimmer_alex",
   "email": "alex@example.com",
   "password": "SecurePass123!",
   "re_password": "SecurePass123!",
@@ -70,7 +67,6 @@ When a user registers, they **must specify a `role`** - either `athlete` or `org
 **Register as Organization Manager:**
 ```json
 {
-  "username": "coach_martin",
   "email": "martin@example.com",
   "password": "SecurePass123!",
   "re_password": "SecurePass123!",
@@ -107,7 +103,6 @@ Authorization: Token a1b2c3d4e5f6g7h8i9j0
   "featured_athletes": [
     {
       "id": 1,
-      "user_name": "alex_smith",
       "sport": "Swimming",
       "organization": 3,
       "organization_name": "City Aquatics"
@@ -153,14 +148,14 @@ Authorization: Token a1b2c3d4e5f6g7h8i9j0
   "search_results": [
     {
       "id": 5,
-      "user_name": "emma_swimmer",
+      "first_name": "Alex",
       "sport": "Swimming",
       "organization": 3,
       "organization_name": "City Aquatics"
     },
     {
       "id": 12,
-      "user_name": "mike_swimmer",
+      "first_name": "Alex",
       "sport": "Swimming",
       "organization": 3,
       "organization_name": "City Aquatics"
@@ -201,7 +196,6 @@ results = response.json()["search_results"]
 ```json
 {
   "id": 1,
-  "user_name": "alex_smith",
   "sport": "Swimming",
   "organization": 3,
   "organization_name": "City Aquatics"
@@ -335,7 +329,6 @@ BASE_URL = "https://timig.pythonanywhere.com/api"
 response = requests.post(
     f"{BASE_URL}/auth/registration/",
     json={
-        "username": "swimmer_alex",
         "email": "alex@example.com",
         "password": "securePass123!",
         "re_password": "securePass123!",
@@ -365,7 +358,6 @@ BASE_URL = "https://timig.pythonanywhere.com/api"
 response = requests.post(
     f"{BASE_URL}/auth/registration/",
     json={
-        "username": "coach_martin",
         "email": "martin@example.com",
         "password": "securePass123!",
         "re_password": "securePass123!",
@@ -389,7 +381,7 @@ BASE_URL = "https://timig.pythonanywhere.com/api"
 
 response = requests.post(
     f"{BASE_URL}/auth/login/",
-    json={"username": "swimmer_alex", "password": "securePass123!"}
+    json={"email": "swimmer_alex@email.com", "password": "securePass123!"}
 )
 token = response.json()["key"]
 
@@ -469,7 +461,7 @@ response = requests.get(
 athletes = response.json()["results"]
 
 for athlete in athletes:
-    print(f"{athlete['user_name']} - {athlete['sport']}")
+    print(f"{athlete['first_name']} - {athlete['sport']}")
 ```
 
 ---
