@@ -58,6 +58,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         
         # Get the role from the validated data
         role = self.validated_data.get('role')
+        role = role.split('/')[0].strip().lower() if '/' in role else role # Handle cases where role might be sent as "organization/school_manager"
         
         # Extract common fields
         first_name = self.validated_data.get('first_name', '')
