@@ -6,7 +6,7 @@ This API serves as the backbone for managing athlete portfolios, organizational 
 
 ## 🚀 Base Configuration
 
-* **Live URL:** `https://timig.pythonanywhere.com`
+* **BASE URL:** `https://timig.pythonanywhere.com`
 * **API Root:** `https://timig.pythonanywhere.com/api/`
 * **Auth Root:** `https://timig.pythonanywhere.com/api/auth/`
 * **Header Required:** `Content-Type: application/json`
@@ -91,10 +91,7 @@ Authorization: Token a1b2c3d4e5f6g7h8i9j0
 
 ### 1. App Home (`/api/v1/home/`)
 #### Home
-**GET** `/api/v1/home/` - Optional auth. Returns home screen data including featured athletes, recent highlights, top schools, and optional search results.
-
-**Query Parameters:**
-- `q` (optional) - Search string to filter athletes by name, email, sport, or organization. Returns up to 100 matching athletes.
+**GET** `/api/v1/home/` - Returns home screen data including featured athletes, recent highlights, top schools.
 
 **Response Example:**
 ```json
