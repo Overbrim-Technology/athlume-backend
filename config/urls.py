@@ -21,7 +21,7 @@ admin.site.site_title = 'Athlume Profile'
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
     
     # 1. Login, Logout, Password Reset, Password Change
     path('api/auth/', include('dj_rest_auth.urls')),
